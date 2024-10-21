@@ -12,16 +12,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.Validator;
 
 import java.util.*;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ClienteServiceTest {
 
+    public static final String EL_CLIENTE_LE_FALTA_EL_NOMBRE = "falta el dato";
     @Mock
     ClienteRepository clienteRepository;
 
@@ -33,6 +38,9 @@ public class ClienteServiceTest {
 
     @InjectMocks
     ClienteServiceImpl clienteService;
+
+    @Mock
+    Validator validator;
 
     Cliente cliente;
     Map<String, String> headers;
@@ -53,6 +61,8 @@ public class ClienteServiceTest {
     void guardarCliente() throws JsonException, JsonProcessingException {
         Cliente response = cliente;
         when(clienteRepository.save(this.cliente)).thenReturn(response);
+        Errors errors = mock(Errors.class);
+        when(validator.validateObject(this.cliente)).thenReturn(errors);
         Cliente clienteg = clienteService.guardarCliente(cliente, headers);
         assertNotNull(clienteg.getId());
         assertEquals("mateo", clienteg.getNombre());
@@ -61,19 +71,19 @@ public class ClienteServiceTest {
     @Test
     void guardarClienteValidationFails() throws JsonException, JsonProcessingException {
         Cliente mycliente = new Cliente("", "", "lopez", "duque", new Date(), true);
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            clienteService.guardarCliente(mycliente, headers);
-        });
-        assertEquals(IllegalArgumentException.class, exception.getClass());
-    }
+        Errors errors = mock(Errors.class);
+        ObjectError objectError = mock(ObjectError.class);
+        List<Errors> mockErrors = Collections.singletonList(errors);
+        when(objectError.getDefaultMessage()).thenReturn(EL_CLIENTE_LE_FALTA_EL_NOMBRE);
+        when(errors.hasErrors()).thenReturn(true);
+        when(errors.getAllErrors()).thenReturn(Collections.singletonList(objectError));
+        when(validator.validateObject(mycliente)).thenReturn(errors);
 
-    @Test
-    void guardarClienteValidationFails2() throws JsonException, JsonProcessingException {
-        Cliente mycliente = new Cliente("", "mateo", "", "duque", new Date(), true);
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             clienteService.guardarCliente(mycliente, headers);
         });
         assertEquals(IllegalArgumentException.class, exception.getClass());
+        assertEquals(EL_CLIENTE_LE_FALTA_EL_NOMBRE + "\n", exception.getMessage());
     }
 
     @Test

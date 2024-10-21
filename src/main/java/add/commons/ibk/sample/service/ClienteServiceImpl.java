@@ -1,6 +1,5 @@
 package add.commons.ibk.sample.service;
 
-import add.commons.ibk.sample.dto.DeviceType;
 import add.commons.ibk.sample.dto.HeaderDTO;
 import add.commons.ibk.sample.exceptions.JsonException;
 import add.commons.ibk.sample.model.Cliente;
@@ -8,10 +7,8 @@ import add.commons.ibk.sample.dto.ClienteDTO;
 import add.commons.ibk.sample.repository.ClienteRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -34,8 +31,8 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
  * clienteEventHubService para el envio de eventos
  */
 public class ClienteServiceImpl implements ClienteService {
-    public static final String CORRECT_STATUS = "0000";
-    public static final String NOT_EXIST_STATUS = "9999";
+    public static final String CORRECT_STATUS = ClienteStatusEnum.CORRECT_STATUS.toString();
+    public static final String NOT_EXIST_STATUS = ClienteStatusEnum.NOT_EXIST_STATUS.toString();
     Logger logger = LoggerFactory.getLogger(ClienteServiceImpl.class);
 
     private ClienteRepository clienteRepository;

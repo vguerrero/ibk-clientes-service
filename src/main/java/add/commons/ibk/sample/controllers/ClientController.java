@@ -4,12 +4,9 @@ import add.commons.ibk.sample.exceptions.JsonException;
 import add.commons.ibk.sample.model.Cliente;
 import add.commons.ibk.sample.dto.ClienteDTO;
 import add.commons.ibk.sample.service.ClienteServiceImpl;
-import ch.qos.logback.core.net.server.Client;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +39,7 @@ public class ClientController {
             return new ResponseEntity<>(e.getMessage(), HttpStatusCode.valueOf(500));
         }
     }
+
 
     @GetMapping
     public ResponseEntity<List<ClienteDTO>> getClientes() {
