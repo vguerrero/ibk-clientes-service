@@ -2,23 +2,30 @@
 - **Java 17 Correto**: Necesario para ejecutar el proyecto.
 - **Maven**: Utilizado para compilar y construir el proyecto.
 - **Docker** 
-- **Kubernetes**: yo por ejemplo habilite el de docker desktop
-- cree una cuenta gratuita de azure para cosmo db, pero para el event hub use uno de prueba que tenia del proyecto pasado
-por favor cambiar por unos acordes a las pruebas
+- **Kubernetes**: se habilita servicio de kubernetes desde el de docker desktop tal como se ve en las imagenes de evidencia.
+- cree una cuenta gratuita de azure para cosmo db, pero para el event hub, por tema de costos use uno de prueba que tenia del proyecto pasado y funciono correctamente
+por favor cambiar por unos acordes a los propios.
 
-
-
+# Obtener codigo fuente
+```.
+git clone https://github.com/vguerrero/ibk-clientes-service
+```
 # Instrucciones para correr el proyecto
 * compilar el proyecto con el comando en la raiz del proyecto:<br>
 ```.
 mvn clean install
 ```
 
-# Construccion de la imagen docker desde el Dockerfile
-* desde la raiz del proyecto correr el siguiente comando:<br>
+* la imagen ya esta publicada en mi repositorio de docker hub y se carga desde la configuracion del deployment.yml
+* https://hub.docker.com/repository/docker/vguerrero/cliente-service/general
+
+* de todas maneras dejo el comando para la creacion de la imagen
 ```.
 docker build -t cliente-service .
 ```
-la imagen esta publicada en mi docker hub y se jala desde la configuracion del deployment.yml
+se deja carpeta de evidencia de la funcionalidad lograda en la practica
+[evidencias](evidencias)
+
+Muchas gracias.
 
 
