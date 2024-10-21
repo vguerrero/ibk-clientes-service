@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cliente-service
+spec:
+  selector:
+    matchLabels:
+      app: cliente-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cliente-service
+    spec:
+      containers:
+        - name: cliente-service
+          image: cliente-service:latest
+          ports:
+            - containerPort: 8081
+          env:
+          - name: REGION
+            valueFrom:
+              configMapKeyRef:
+                name: cliente-services
+                key: region
+          - name: GETTRANSACTIONCODE
+            valueFrom:
+              configMapKeyRef:
+                name: cliente-services
+                key: getTransactionCode
+
+          - name: SAVETRANSACTIONCODE
+            valueFrom:
+              configMapKeyRef:
+                name: cliente-services
+                key: saveTransactionCode

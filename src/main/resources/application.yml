@@ -1,0 +1,17 @@
+server:
+  port: 8082
+
+
+spring:
+  cloud:
+    azure:
+      cosmos:
+        database: clientes
+        populate-query-metrics: 'true'
+        endpoint: https://vmgsazureaccount1.documents.azure.com:443/
+        key: 3V7PHjBjC2NH5gDeeTge0B3zklshJwWW550atZy6tRdsjiPxQ0t8bPHwXX7dsiughb6RsWobQhxkACDbn9EcDw==
+
+azure:
+  eventhub:
+    connectionString: "Endpoint=sb://ehnseu2c011adssbnx001.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=XP+cM85SDxQPgYT3u198AACi1Q6WqTPbP+AEhHLdUoc="
+    eventHubName: ehubeu2c011adssbnx001

@@ -1,0 +1,8 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cliente-service
+data:
+  region: "EAST"
+  getTransactionCode: "002"
+  saveTransactionCode: "102"
