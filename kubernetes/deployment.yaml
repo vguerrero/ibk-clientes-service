@@ -14,23 +14,23 @@ spec:
     spec:
       containers:
         - name: cliente-service
-          image: cliente-service:latest
+          image: vguerrero/cliente-service:latest
           ports:
             - containerPort: 8081
           env:
           - name: REGION
             valueFrom:
               configMapKeyRef:
-                name: cliente-services
+                name: cliente-service
                 key: region
           - name: GETTRANSACTIONCODE
             valueFrom:
               configMapKeyRef:
-                name: cliente-services
+                name: cliente-service
                 key: getTransactionCode
 
           - name: SAVETRANSACTIONCODE
             valueFrom:
               configMapKeyRef:
-                name: cliente-services
+                name: cliente-service
                 key: saveTransactionCode
