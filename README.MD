@@ -23,6 +23,28 @@ mvn clean install
 ```.
 docker build -t cliente-service .
 ```
+* curls del servicio
+guardado
+ ```.
+  curl --location 'http://localhost:8081/clientes' \
+  --header 'consumerid: SMP' \
+  --header 'traceparent: 00-db65adadcc7ab67b6eaa38521c34c42a-c1d2e415b56c412b-01' \
+  --header 'devicetype: AND' \
+  --header 'deviceid: MA42FJ799HF' \
+  --header 'Content-Type: application/json' \
+  --data ' {
+  "nombre": "andres",
+  "apellido": "navarro",
+  "apellidoMaterno":"soto",
+  "fecha_creacion": 1729272916926,
+  "activo": true
+
+  }'
+```
+consulta
+ ```.
+ curl --location 'http://localhost:8081/clientes'
+ ```
 se deja carpeta de evidencia de la funcionalidad lograda en la practica
 [evidencias](evidencias)
 
